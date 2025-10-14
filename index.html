@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vitura Solutions — Digital Design & Development</title>
+  <meta name="description" content="Vitura Solutions builds websites and digital marketing to help your business thrive." />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- favicon (simplified SVG, transparent background) -->
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140"><polygon points="12,12 60,124 34,124 12,12" fill="%2300c853" opacity="0.95"/><polygon points="108,12 60,124 86,124 108,12" fill="%2300e5ff" opacity="0.95"/></svg>'>
+
+  <style>
+    :root{
+      --navy:#0b0f19;
+      --navy-2:#141c2c;
+      --tealish:#0b3c47;
+      --white:#ffffff;
+      --muted:rgba(255,255,255,0.78);
+      --card: rgba(255,255,255,0.03);
+      --maxw:1100px;
+      --green:#00c853;
+      --blue:#00e5ff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,Arial;
+      background: linear-gradient(135deg,var(--navy) 0%, var(--navy-2) 70%, var(--tealish) 100%);
+      color:var(--white);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+    /* Header */
+    header.site-header{
+      position:fixed;left:0;right:0;top:0;z-index:120;padding:12px 0;
+      background:transparent;transition:background .28s,backdrop-filter .28s,box-shadow .28s;
+    }
+    header.site-header.scrolled{
+      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.02);
+      box-shadow:0 8px 26px rgba(0,0,0,0.45);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    .brand{display:flex;gap:12px;align-items:center}
+    /* taller geometric V */
+    .brand svg{width:56px;height:72px;flex-shrink:0}
+    .brand .title{
+      font-size:16px;margin:0;font-weight:800;letter-spacing:0.2px;
+      background: linear-gradient(90deg, var(--green), var(--blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color:transparent;
+    }
+    .brand .tag{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:1px}
+
+    nav.primary{display:flex;gap:14px;align-items:center}
+    nav.primary a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s}
+    nav.primary a:hover{color:var(--white);background:rgba(255,255,255,0.02)}
+
+    .btn-outline{
+      background:transparent;border:1.5px solid var(--white);color:var(--white);padding:8px 14px;border-radius:10px;
+      font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;
+      transition:all .18s ease;font-size:15px;line-height:1;
+    }
+    .btn-outline:hover{
+      background:var(--white);color:var(--navy);transform:translateY(-3px);box-shadow:0 12px 32px rgba(255,255,255,0.04);
+    }
+
+    main{padding-top:96px}
+
+    /* HERO */
+    .hero{
+      position:relative;overflow:hidden;min-height:72vh;display:grid;place-items:center;padding:84px 20px 92px;text-align:center;
+    }
+    /* animated diagonal grid only in hero (opacity 0.10) */
+    .hero-grid{
+      position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0.10;
+      background-image:
+        linear-gradient(135deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(45deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size:28px 28px,56px 56px;
+      animation: moveGrid 22s linear infinite;
+      mix-blend-mode:overlay;
+    }
+    @keyframes moveGrid{from{background-position:0 0,0 0}to{background-position:-560px 560px,-280px 280px}}
+
+    .hero-inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    .hero-copy{max-width:880px;margin:0 auto}
+    .hero-copy h1{font-size:40px;line-height:1.05;margin:0 0 12px;font-weight:800;}
+    .hero-copy p{color:var(--muted);font-size:17px;margin:0 0 22px}
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    .about{max-width:920px;margin:48px auto;padding:28px;border-radius:12px;background:var(--card);box-shadow:0 12px 36px rgba(0,0,0,0.45)}
+    .about h2{margin:0 0 8px;font-size:20px}
+    .about p{color:var(--muted);font-size:16px;line-height:1.6}
+
+    /* Services grid restored */
+    .services{max-width:1100px;margin:36px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .svc{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:20px;display:flex;gap:14px;align-items:flex-start;transition:transform .22s, box-shadow .22s;box-shadow:0 10px 30px rgba(0,0,0,0.45);}
+    .svc:hover{transform:translateY(-8px);box-shadow:0 18px 44px rgba(0,0,0,0.55)}
+    .svc .icon{width:56px;height:56px;border-radius:10px;display:grid;place-items:center;border:1px solid rgba(255,255,255,0.06)}
+    .svc svg{width:28px;height:28px;stroke:var(--white);stroke-width:1.6;fill:none}
+    .svc h3{margin:0 0 6px;font-size:16px}
+    .svc p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+
+    /* Contact: centered minimal */
+    .contact { text-align:center; padding:72px 20px 92px; }
+    .contact h3{font-size:20px;margin-bottom:6px}
+    .contact p{color:var(--muted);margin:6px 0}
+
+    /* Footer and back-to-top */
+    footer{padding:28px 20px;text-align:center;color:var(--muted);font-size:14px}
+    #backToTop{position:fixed;right:20px;bottom:20px;width:48px;height:48px;border-radius:999px;border:none;background:var(--white);color:var(--navy);font-weight:800;display:grid;place-items:center;box-shadow:0 12px 36px rgba(0,0,0,0.45);opacity:0;visibility:hidden;transition:opacity .32s,transform .24s}
+    #backToTop.show{opacity:1;visibility:visible;transform:translateY(0)}
+    #backToTop:hover{transform:translateY(-6px);background:rgba(255,255,255,0.95)}
+
+    /* reveal on scroll baseline */
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .66s ease,transform .66s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media (max-width:1024px){ .hero-copy h1{font-size:32px} .services{grid-template-columns:1fr} }
+    @media (max-width:560px){ nav.primary{display:none} .brand .title{font-size:15px} .hero-copy h1{font-size:26px} }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="nav-inner wrap" role="navigation" aria-label="Main">
+      <div class="brand" aria-hidden="false">
+        <!-- CORRECTLY-ORIENTED geometric V: two tall rectangular polygons angled inward to form a V pointing downward.
+             Left polygon leans to the right; right polygon leans to the left. Opacity blends center. -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" width="56" height="72" aria-hidden="true" role="img">
+          <!-- LEFT: starts at top-left, slopes down to center bottom -->
+          <polygon points="12,12 56,12 66,140 40,140" fill="#00c853" opacity="0.92"></polygon>
+          <!-- RIGHT: starts at top-right, slopes down to center bottom -->
+          <polygon points="108,12 64,12 54,140 80,140" fill="#00e5ff" opacity="0.92"></polygon>
+        </svg>
+
+        <div>
+          <div class="title">Vitura Solutions</div>
+          <div class="tag">Digital Design &amp; Development</div>
+        </div>
+      </div>
+
+      <nav class="primary" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <!-- "Get a Quote" removed per your instruction -->
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="heroHeading">
+      <div class="hero-grid" aria-hidden="true"></div>
+
+      <div class="hero-inner wrap">
+        <div class="hero-copy reveal" data-reveal>
+          <h1 id="heroHeading">We build websites that help your business thrive.</h1>
+          <p>Modern design, seamless development, and digital marketing built for growth.</p>
+          <div class="hero-actions">
+            <a class="btn-outline" href="#contact">Start your project</a>
+            <!-- "See services" intentionally removed -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about reveal" data-reveal>
+      <div class="wrap">
+        <h2>About Us</h2>
+        <p>
+          Vitura Solutions helps businesses succeed online. We specialize in website creation and digital marketing, combining creativity and technical expertise to grow your brand.
+          <br><br>Your success is our mission — let’s build something amazing together.
+        </p>
+      </div>
+    </section>
+
+    <!-- SERVICES (restored) -->
+    <section id="services" class="services reveal" data-reveal>
+      <div class="svc" role="article" aria-labelledby="svc-design">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 4v2"/></svg></div>
+        <div><h3 id="svc-design">Website Design</h3><p>Brand-led visual design, prototypes, and UX that increase conversions and trust.</p></div>
+      </div>
+
+      <div class="svc" role="article" aria-labelledby="svc-dev">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 18l6-6-6-6"/><path d="M8 6L2 12l6 6"/></svg></div>
+        <div><h3 id="svc-dev">Development</h3><p>Modern front-end and back-end builds: fast, accessible, and maintainable.</p></div>
+      </div>
+
+      <div class="svc" role="article" aria-labelledby="svc-marketing">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 13l4-4 6 6"/></svg></div>
+        <div><h3 id="svc-marketing">Digital Marketing &amp; SEO</h3><p>Performance-driven marketing and SEO that grows traffic and converts visitors into customers.</p></div>
+      </div>
+    </section>
+
+    <!-- CONTACT (centered minimal) -->
+    <section id="contact" class="contact reveal" data-reveal>
+      <div class="wrap">
+        <h3>Contact</h3>
+        <p><strong>Email:</strong> <a href="mailto:viturasolutions@gmail.com" style="color:var(--muted);text-decoration:underline">viturasolutions@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:4164743725" style="color:var(--muted);text-decoration:underline">416 474 3725</a></p>
+        <p><strong>Instagram:</strong> <a href="https://www.instagram.com/viturasolutions?igsh=MWI4dDBrNHVhNHpiZQ==" target="_blank" style="color:var(--muted);text-decoration:underline">@viturasolutions</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="font-weight:700">Vitura Solutions</div>
+      <div style="color:var(--muted);font-size:14px">Digital Design &amp; Development</div>
+      <div style="display:flex;gap:12px">
+        <a href="mailto:viturasolutions@gmail.com" style="color:var(--muted);text-decoration:none" aria-label="Email">✉️</a>
+        <a href="https://www.instagram.com/viturasolutions?igsh=MWI4dDBrNHVhNHpiZQ==" target="_blank" style="color:var(--muted);text-decoration:none" aria-label="Instagram">📸</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTop" aria-label="Back to top">↑</button>
+
+  <script>
+    // header scroll effect
+    const header = document.getElementById('siteHeader');
+    function updateHeader(){ if(window.scrollY > 36) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
+    window.addEventListener('scroll', updateHeader);
+    updateHeader();
+
+    // reveal on scroll (IntersectionObserver)
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+    }, {threshold: 0.14});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+
+    // smooth anchors
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const href = this.getAttribute('href');
+        if(!href || href.indexOf('#') !== 0) return;
+        e.preventDefault();
+        const id = href.slice(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    function scrollToID(id){ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth'}); }
+
+    // back to top
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', ()=> { if(window.scrollY > 320) backToTop.classList.add('show'); else backToTop.classList.remove('show'); });
+    backToTop.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+    // accessibility: show focus outlines for keyboard users
+    window.addEventListener('keyup', (e)=> { if(e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing'); }, {once:true});
+  </script>
+</body>
+</html>
